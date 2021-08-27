@@ -31,23 +31,25 @@ class NoteManager:
     def already_exists(self, topic):
         return topic in self.available_notes
 
-    def search_notes(self, topic, keyword):
+    def search_notes(self, topic, keyword, size=0):
         file = self._file_name(topic)
 
         keyword = keyword.lower()
 
         lines = self._read_lines(file)
+
         locations = [i for i, line in enumerate(lines) if keyword in line.lower()]
+        formated_lines = [f"{i} " + line for i, line in enumerate(lines)]
 
-        start_ends = [(max(loc - 1, 0), loc + 2) for loc in locations]
+        start_ends = [(max(loc - size, 0), loc + size + 1) for loc in locations]
 
-        def slice(lines, start, end):
+        def slice(start, end):
             if start == 0:
-                return lines[:end]
+                return formated_lines[:end]
 
-            return lines[start:end]
+            return formated_lines[start:end]
 
-        places = [slice(lines, start, end) for start, end in start_ends]
+        places = [slice(start, end) for start, end in start_ends]
         new_lines = ["".join(place).strip() for place in places]
 
         return new_lines

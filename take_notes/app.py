@@ -24,24 +24,22 @@ def list():
         typer.echo(f"- {topic}")
 
 @app.command()
-def grep(keyword: str):
+def grep(keyword: str, size: int = 0):
     """Search all existings notes for the keyword"""
     topics = notes.available_notes
 
     typer.clear()
     for topic in topics:
-        lines = notes.search_notes(topic, keyword)
+        lines = notes.search_notes(topic, keyword, size)
         if len(lines) == 0:
             continue
         typer.secho(f"--- {topic} ---", fg=typer.colors.GREEN)
 
         lines = [replace_all(keyword, line) for line in lines]
         for line in lines[:-1]:
-            typer.echo("keyword found:")
             typer.echo(line)
             typer.echo()
 
-        typer.echo("keyword found:")
         typer.echo(lines[-1])
 
         typer.echo()
