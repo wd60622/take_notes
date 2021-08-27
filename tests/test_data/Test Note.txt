@@ -1,0 +1,7 @@
+First keyword
+
+This is a test note. Second keyword found here
+
+Surrounding text
+Looking for a Third keyword here.
+Other text
