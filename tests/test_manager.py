@@ -24,28 +24,33 @@ def test_view(topic, n, expected, note_manager):
 
 
 @pytest.mark.parametrize(
-    "keyword, expected",
+    "keyword, size, expected",
     [
-        ("First keyword", ["First keyword"]),
+        ("First keyword", 0, ["0 First keyword"]),
+        ("First keyword", 1, ["0 First keyword\n1"]),
         (
-            "Second keyword",
-            ["This is a test note. Second keyword found here"],
+            "Second keyword", 0,
+            ["2 This is a test note. Second keyword found here"],
         ),
         (
-            "Third keyword",
-            ["Surrounding text\nLooking for a Third keyword here.\nOther text"],
+            "Second keyword", 1,
+            ["1 \n2 This is a test note. Second keyword found here\n3"]
         ),
         (
-            "keyword",
+            "Third keyword", 0,
+            ["5 Looking for a Third keyword here."],
+        ),
+        (
+            "keyword", 0,
             [
-                "First keyword",
-                "This is a test note. Second keyword found here",
-                "Surrounding text\nLooking for a Third keyword here.\nOther text",
+                "0 First keyword",
+                "2 This is a test note. Second keyword found here",
+                "5 Looking for a Third keyword here.",
             ],
         ),
-        ("missing keyword", []),
+        ("missing keyword", 0, []),
     ],
 )
-def test_search(keyword, expected, note_manager):
-    results = note_manager.search_notes("Test Note", keyword)
+def test_search(keyword, size, expected, note_manager):
+    results = note_manager.search_notes("Test Note", keyword, size)
     assert results == expected
