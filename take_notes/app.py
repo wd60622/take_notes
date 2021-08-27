@@ -12,6 +12,7 @@ app = typer.Typer()
 
 notes = NoteManager()
 
+
 @app.command()
 def list():
     """List the available notes"""
@@ -22,6 +23,7 @@ def list():
     topics = notes.available_notes
     for topic in topics:
         typer.echo(f"- {topic}")
+
 
 @app.command()
 def grep(keyword: str, size: int = 0):
@@ -44,18 +46,25 @@ def grep(keyword: str, size: int = 0):
 
         typer.echo()
 
+
 def replace_all(keyword, line):
     wordlen = len(keyword)
     locations = [m.start() for m in re.finditer(keyword.lower(), line.lower())]
 
     for start in locations:
-        keyword_case = line[start:start + wordlen]
-        line = line.replace(keyword_case, typer.style(keyword_case, fg=typer.colors.RED))
+        keyword_case = line[start : start + wordlen]
+        line = line.replace(
+            keyword_case, typer.style(keyword_case, fg=typer.colors.RED)
+        )
 
     return line
 
+
 @app.command()
-def view(topics: Optional[List[str]] = typer.Argument(None, help="The topic(s) to view"), n: int = 5):
+def view(
+    topics: Optional[List[str]] = typer.Argument(None, help="The topic(s) to view"),
+    n: int = 5,
+):
     """View the topic(s)"""
     if len(topics) == 0:
         if notes.no_notes:
@@ -71,6 +80,7 @@ def view(topics: Optional[List[str]] = typer.Argument(None, help="The topic(s) t
                 typer.secho(f"--- {topic} ---", fg=typer.colors.GREEN)
                 typer.echo(lines)
                 typer.echo()
+
 
 @app.command()
 def create(topics: List[str] = typer.Argument(..., help="The topic to create")):

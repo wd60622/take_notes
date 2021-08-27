@@ -2,6 +2,7 @@ import os
 
 from itertools import islice
 
+
 class NoteManager:
     def __init__(self):
         if not os.path.exists(self.NOTES_DIR):
@@ -59,7 +60,6 @@ class NoteManager:
             lines = f.readlines()
 
         return lines
-
 
     def create_new_notes(self, topic=None):
         file = self._file_name(topic)

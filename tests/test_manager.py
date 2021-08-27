@@ -18,7 +18,17 @@ def test_exists(topic, expected, note_manager):
     assert note_manager.already_exists(topic) == expected
 
 
-@pytest.mark.parametrize("topic, n, expected", [("Test Note", 1, "First keyword"), ("Test Note", 3, "First keyword\n\nThis is a test note. Second keyword found here")])
+@pytest.mark.parametrize(
+    "topic, n, expected",
+    [
+        ("Test Note", 1, "First keyword"),
+        (
+            "Test Note",
+            3,
+            "First keyword\n\nThis is a test note. Second keyword found here",
+        ),
+    ],
+)
 def test_view(topic, n, expected, note_manager):
     assert note_manager.view_existing_notes(topic, n) == expected
 
@@ -29,19 +39,23 @@ def test_view(topic, n, expected, note_manager):
         ("First keyword", 0, ["0 First keyword"]),
         ("First keyword", 1, ["0 First keyword\n1"]),
         (
-            "Second keyword", 0,
+            "Second keyword",
+            0,
             ["2 This is a test note. Second keyword found here"],
         ),
         (
-            "Second keyword", 1,
-            ["1 \n2 This is a test note. Second keyword found here\n3"]
+            "Second keyword",
+            1,
+            ["1 \n2 This is a test note. Second keyword found here\n3"],
         ),
         (
-            "Third keyword", 0,
+            "Third keyword",
+            0,
             ["5 Looking for a Third keyword here."],
         ),
         (
-            "keyword", 0,
+            "keyword",
+            0,
             [
                 "0 First keyword",
                 "2 This is a test note. Second keyword found here",
