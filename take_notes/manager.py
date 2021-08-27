@@ -31,7 +31,7 @@ class NoteManager:
     def already_exists(self, topic):
         return topic in self.available_notes
 
-    def search_notes(self, topic, keyword) -> Tuple:
+    def search_notes(self, topic, keyword):
         file = self._file_name(topic)
 
         keyword = keyword.lower()
