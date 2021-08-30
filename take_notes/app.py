@@ -26,6 +26,31 @@ def list():
 
 
 @app.command()
+def todo(name: str = typer.Option(None, help="Alterative name for the section")):
+    """Display the TODO sections"""
+    topics = notes.available_notes
+
+    section_name = name if name is not None else "TODO"
+
+    # typer.clear()
+    total = 0
+    for topic in topics:
+        lines = notes.search_section(topic, section_name)
+        if lines == "":
+            continue
+
+        typer.secho(f"{section_name} --- {topic}", fg=typer.colors.GREEN)
+        typer.echo(lines)
+
+        typer.echo()
+
+        total += 1
+
+    if total == 0:
+        typer.echo(f"No {section_name} sections founds in your notes.")
+
+
+@app.command()
 def grep(keyword: str, size: int = 0):
     """Search all existings notes for the keyword"""
     topics = notes.available_notes

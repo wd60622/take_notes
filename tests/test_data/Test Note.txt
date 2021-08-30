@@ -5,3 +5,13 @@ This is a test note. Second keyword found here
 Surrounding text
 Looking for a Third keyword here.
 Other text
+
+TODO
+Here is a todo item
+Another todo item
+
+This will not be included in the todo section
+
+line section below has spaces in the name
+ANOTHER SECTION              
+Included

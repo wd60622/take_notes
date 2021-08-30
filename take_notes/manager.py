@@ -32,6 +32,27 @@ class NoteManager:
     def already_exists(self, topic):
         return topic in self.available_notes
 
+    def search_section(self, topic, section_name) -> str:
+        file = self._file_name(topic)
+
+        lines = self._read_lines(file)
+
+        start = -1
+        for i, line in enumerate(lines):
+            if line.strip() == section_name:
+                start = i
+
+            if start != -1 and line.strip() == "":
+                end = i
+                break
+            else:
+                end = i
+
+        if start == -1:
+            return ""
+
+        return "".join(lines[start + 1 : end + 1]).strip()
+
     def search_notes(self, topic, keyword, size=0):
         file = self._file_name(topic)
 

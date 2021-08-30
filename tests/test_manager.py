@@ -65,6 +65,19 @@ def test_view(topic, n, expected, note_manager):
         ("missing keyword", 0, []),
     ],
 )
-def test_search(keyword, size, expected, note_manager):
+def test_search_notes(keyword, size, expected, note_manager):
     results = note_manager.search_notes("Test Note", keyword, size)
+    assert results == expected
+
+
+@pytest.mark.parametrize(
+    "section_name, expected",
+    [
+        ("TODO", "Here is a todo item\nAnother todo item"),
+        ("MISSING SECTION", ""),
+        ("ANOTHER SECTION", "Included"),
+    ],
+)
+def test_search_section(section_name, expected, note_manager):
+    results = note_manager.search_section("Test Note", section_name)
     assert results == expected
