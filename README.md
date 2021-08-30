@@ -6,5 +6,10 @@ Built upon `typer` python packages
 
 Type `notes` to begin.
 
-There are 4 commands available: `list`, `create`, `open`, `delete`
-All are self-explanatory 
+The following commands are available: `list`, `grep`, `view`,  `create`, `open`, `delete`
+
+
+
+## Todo
+- Add string matching to topics -> make a suggestion
+- create a TODO line to search on
