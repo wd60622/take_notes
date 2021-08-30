@@ -20,6 +20,7 @@ def list():
         typer.echo("There are no notes. Create with (create) command.")
         raise typer.Exit()
 
+    typer.clear()
     topics = notes.available_notes
     for topic in topics:
         typer.echo(f"- {topic}")
@@ -32,7 +33,7 @@ def todo(name: str = typer.Option(None, help="Alterative name for the section"))
 
     section_name = name if name is not None else "TODO"
 
-    # typer.clear()
+    typer.clear()
     total = 0
     for topic in topics:
         lines = notes.search_section(topic, section_name)
