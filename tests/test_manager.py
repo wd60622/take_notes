@@ -6,6 +6,17 @@ def test_available(note_manager):
     assert note_manager.available_notes == ["Test Note"]
 
 
+@pytest.mark.parametrize(
+    "topic, expected",
+    [
+        ("test note", "Test Note"),
+        ("fdajfldajfdkajfda", "")
+    ]
+)
+def test_closest(topic, expected, note_manager):
+    assert note_manager.closest_note(topic) == expected
+
+
 def test_empty(empty_note_manager):
     assert empty_note_manager.no_notes
     assert empty_note_manager.available_notes == []

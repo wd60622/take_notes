@@ -95,7 +95,7 @@ def view(
         if notes.no_notes:
             raise typer.Exit()
 
-        topics = notes.available_notes
+    topics = notes.available_notes
 
     typer.clear()
     for topic in topics:
@@ -122,7 +122,11 @@ def create(topics: List[str] = typer.Argument(..., help="The topic to create")):
 def open(topic: str = typer.Argument(..., help="The topic to open")):
     """Open existing topic"""
     if not notes.already_exists(topic):
-        typer.echo("This note doesn't exists. Create with (create) command.")
+        closest_note = notes.closest_note(topic)
+        if closest_note != "":
+            typer.echo(f"This note doesn't exist. Did you mean {closest_note}?")
+        else:
+            typer.echo("This note doesn't exist. Create with the (create) command.")
         raise typer.Exit()
 
     notes.open_existing_notes(topic)

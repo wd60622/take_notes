@@ -2,6 +2,8 @@ import os
 
 from itertools import islice
 
+from difflib import SequenceMatcher
+
 
 class NoteManager:
     def __init__(self):
@@ -24,6 +26,16 @@ class NoteManager:
         topics.sort()
 
         return topics
+
+    def closest_note(self, topic) -> str:
+        distances = [(SequenceMatcher(None, topic.lower(), potential.lower()).ratio(), potential) for potential in self.available_notes]
+
+        distances.sort(key=lambda x: x[0])
+
+        if distances[-1][0] < .5:
+            return ""
+
+        return distances[-1][1]
 
     @property
     def no_notes(self):
