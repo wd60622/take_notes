@@ -49,6 +49,11 @@ def todo(name: str = typer.Option(None, help="Alterative name for the section"))
 
     if total == 0:
         typer.echo(f"No {section_name} sections founds in your notes.")
+        raise typer.Exit()
+
+    note_to_open = typer.prompt("What note do you want to open?", default="exit")
+    if note_to_open != "exit":
+        open_note(note_to_open)
 
 
 @app.command()
@@ -95,8 +100,8 @@ def view(
     if len(topics) == 0:
         if notes.no_notes:
             raise typer.Exit()
-
-    topics = notes.available_notes
+        else:
+            topics = notes.available_notes
 
     typer.clear()
     for topic in topics:
@@ -122,6 +127,10 @@ def create(topics: List[str] = typer.Argument(..., help="The topic to create")):
 @app.command()
 def open(topic: str = typer.Argument(..., help="The topic to open")):
     """Open existing topic"""
+    open_note(topic)
+
+
+def open_note(topic):
     if not notes.already_exists(topic):
         closest_note = notes.closest_note(topic)
         if closest_note != "":

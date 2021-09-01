@@ -10,4 +10,5 @@ The following commands are available: `list`, `todo`, `grep`, `view`,  `create`,
 
 TODO
 - Add ability to select which notes to open while viewing / etc
+-- https://typer.tiangolo.com/tutorial/prompt/
 - Allow do switch the editor

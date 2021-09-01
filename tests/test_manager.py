@@ -7,11 +7,7 @@ def test_available(note_manager):
 
 
 @pytest.mark.parametrize(
-    "topic, expected",
-    [
-        ("test note", "Test Note"),
-        ("fdajfldajfdkajfda", "")
-    ]
+    "topic, expected", [("test note", "Test Note"), ("fdajfldajfdkajfda", "")]
 )
 def test_closest(topic, expected, note_manager):
     assert note_manager.closest_note(topic) == expected
