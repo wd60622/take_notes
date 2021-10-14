@@ -1,6 +1,6 @@
 import os
 
-from itertools import islice
+from itertools import islice, zip_longest
 
 from difflib import SequenceMatcher
 
@@ -53,14 +53,11 @@ class NoteManager:
         lines = self._read_lines(file)
 
         start = -1
-        num_empty = 0
-        for i, line in enumerate(lines):
+        for (i, line), next_line in zip_longest(enumerate(lines), lines[1:]):
             if line.strip() == section_name:
                 start = i
-
-            if start != -1 and line.strip() == "":
-                num_empty += 1
-                if num_empty == 2:
+            elif start != -1 and line.strip() == "" and next_line.strip() == "":
+                if next_line.strip() == "":
                     end = i
                     break
             else:
