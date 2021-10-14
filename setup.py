@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="take_notes",
-    version="0.0.5",
+    version="0.0.6",
     author="William Dean",
     author_email="wdean@homepartners.com",
     description="Quickly take different notes.",

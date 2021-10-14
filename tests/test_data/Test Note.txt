@@ -10,8 +10,11 @@ TODO
 Here is a todo item
 Another todo item
 
+This will be included in the todo section
+
+
 This will not be included in the todo section
 
 line section below has spaces in the name
-ANOTHER SECTION              
+ANOTHER SECTION
 Included

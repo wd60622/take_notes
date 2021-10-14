@@ -53,13 +53,16 @@ class NoteManager:
         lines = self._read_lines(file)
 
         start = -1
+        num_empty = 0
         for i, line in enumerate(lines):
             if line.strip() == section_name:
                 start = i
 
             if start != -1 and line.strip() == "":
-                end = i
-                break
+                num_empty += 1
+                if num_empty == 2:
+                    end = i
+                    break
             else:
                 end = i
 
