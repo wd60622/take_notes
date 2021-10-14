@@ -56,8 +56,8 @@ class NoteManager:
         for (i, line), next_line in zip_longest(enumerate(lines), lines[1:]):
             if line.strip() == section_name:
                 start = i
-            elif start != -1 and line.strip() == "" and next_line.strip() == "":
-                if next_line.strip() == "":
+            elif start != -1 and line.strip() == "":
+                if next_line is None or next_line.strip() == "":
                     end = i
                     break
             else:
