@@ -9,7 +9,7 @@ This package can be installed with pip by running `pip install .` in the project
 With a successful install, the `notes` command will now be available. Type `notes` to begin and get prompted with following information:
 
 <p align="center">
-  <img src="images/notes-quick-start.png" height="250"/>
+  <img src="images/notes-quick-start.png" height="350"/>
 </p>
 
 The following commands are available: `create`, `delete`, `grep`, `list`, `open` `rename`, `todo`, `view`
