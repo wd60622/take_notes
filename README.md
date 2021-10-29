@@ -6,10 +6,10 @@ Command Line notes manager powered by the `typer` python package. Also used `ric
 
 This package can be installed with pip by running `pip install .` in the project directory.  
 
-With a successful install, the `notes` command will now be available. Type `notes` to begin and get prompted with following information: 
+With a successful install, the `notes` command will now be available. Type `notes` to begin and get prompted with following information:
 
 <p align="center">
-  <img src="images/notes-quick-start.png" width="250" height="250"/>
+  <img src="images/notes-quick-start.png" height="250"/>
 </p>
 
 The following commands are available: `create`, `delete`, `grep`, `list`, `open` `rename`, `todo`, `view`
