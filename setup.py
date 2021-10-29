@@ -10,5 +10,5 @@ setup(
     description="Quickly take different notes.",
     packages=["take_notes"],
     scripts=["scripts/notes"],
-    install_requires=["typer"],
+    install_requires=["typer", "rich"],
 )
