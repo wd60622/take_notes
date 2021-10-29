@@ -6,6 +6,9 @@ from take_notes.manager import NoteManager
 
 import typer
 
+from rich.console import Console
+from rich.table import Table
+
 from typing import List, Optional
 
 app = typer.Typer()
@@ -22,8 +25,13 @@ def list():
 
     typer.clear()
     topics = notes.available_notes
+    table = Table()
+    table.add_column("Available Notes")
     for topic in topics:
-        typer.echo(f"- {topic}")
+        table.add_row(topic)
+
+    console = Console()
+    console.print(table)
 
 
 @app.command()
@@ -34,25 +42,34 @@ def todo(name: str = typer.Option(None, help="Alterative name for the section"))
     section_name = name if name is not None else "TODO"
 
     typer.clear()
+    table = Table(show_lines=True)
+    table.add_column("Note")
+    table.add_column(section_name, no_wrap=False)
+
     total = 0
     for topic in topics:
         lines = notes.search_section(topic, section_name)
         if lines == "":
             continue
 
-        typer.secho(f"{section_name} --- {topic}", fg=typer.colors.GREEN)
-        typer.echo(lines)
-
-        typer.echo()
+        table.add_row(f"[green]{topic}[/green]", lines)
 
         total += 1
 
     if total == 0:
-        typer.echo(f"No {section_name} sections founds in your notes.")
+        typer.echo(f'No sections named "{section_name}" founds in your notes.')
         raise typer.Exit()
 
+    console = Console()
+    console.print(table)
+
+    open_note_prompt()
+
+
+def open_note_prompt():
     note_to_open = typer.prompt("What note do you want to open?", default="exit")
     if note_to_open != "exit":
+        note_to_open = note_to_open.replace("notes open", "").strip()
         open_note(note_to_open)
 
 
@@ -62,20 +79,26 @@ def grep(keyword: str, size: int = 0):
     topics = notes.available_notes
 
     typer.clear()
+
+    table = Table()
+    table.add_column("Note")
+    table.add_column(f"Lines with {keyword}")
     for topic in topics:
         lines = notes.search_notes(topic, keyword, size)
         if len(lines) == 0:
             continue
-        typer.secho(f"--- {topic} ---", fg=typer.colors.GREEN)
 
         lines = [replace_all(keyword, line) for line in lines]
-        for line in lines[:-1]:
-            typer.echo(line)
-            typer.echo()
 
-        typer.echo(lines[-1])
+        table.add_row(topic, "\n".join(lines))
 
-        typer.echo()
+    if len(table.rows) != 0:
+        console = Console()
+        console.print(table)
+
+        open_note_prompt()
+    else:
+        typer.echo(f'Nothing found under "{keyword}".')
 
 
 def replace_all(keyword, line):
@@ -104,13 +127,20 @@ def view(
             topics = notes.available_notes
 
     typer.clear()
+    table = Table(show_lines=True)
+    table.add_column("Topic")
+    table.add_column(f"First {n} lines", no_wrap=False)
+
     for topic in topics:
         if notes.already_exists(topic):
             lines = notes.view_existing_notes(topic, n)
             if lines != "":
-                typer.secho(f"--- {topic} ---", fg=typer.colors.GREEN)
-                typer.echo(lines)
-                typer.echo()
+                table.add_row(f"[green]{topic}", lines)
+
+    console = Console()
+    console.print(table)
+
+    open_note_prompt()
 
 
 @app.command()
@@ -149,3 +179,20 @@ def delete(topics: List[str] = typer.Argument(..., help="The topic to delete")):
         if notes.already_exists(topic):
             notes.delete_existing_notes(topic)
             typer.echo(f"{topic} was deleted")
+
+
+@app.command()
+def rename(topic: str, new_topic: str):
+    """Rename one topic to another"""
+    if not notes.already_exists(topic):
+        typer.echo(f"{topic} doesn't exist so cannot be moved!")
+        raise typer.Exit()
+
+    if notes.already_exists(new_topic):
+        typer.echo(
+            f"{new_topic} already exists and shouldn't be overwritten with this command. Use `notes delete {new_topic}` first."
+        )
+        raise typer.Exit()
+
+    notes.rename_note(topic, new_topic)
+    typer.echo(f"{topic} was renamed to {new_topic}")

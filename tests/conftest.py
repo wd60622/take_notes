@@ -1,10 +1,10 @@
-import os
+from pathlib import Path
 
 import pytest
 
 from take_notes.manager import NoteManager
 
-test_dir = os.path.abspath(os.path.join(__file__, "../test_data"))
+test_dir = Path(__file__).parents[0] / "test_data"
 
 
 @pytest.fixture

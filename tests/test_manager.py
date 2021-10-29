@@ -80,7 +80,10 @@ def test_search_notes(keyword, size, expected, note_manager):
 @pytest.mark.parametrize(
     "section_name, expected",
     [
-        ("TODO", "Here is a todo item\nAnother todo item\n\nThis will be included in the todo section\n\nAlso included."),
+        (
+            "TODO",
+            "Here is a todo item\nAnother todo item\n\nThis will be included in the todo section\n\nAlso included.",
+        ),
         ("MISSING SECTION", ""),
         ("ANOTHER SECTION", "Included"),
     ],

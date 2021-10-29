@@ -1,27 +1,32 @@
 import os
 
+from pathlib import Path
+
 from itertools import islice, zip_longest
 
 from difflib import SequenceMatcher
 
 
+class FileExistsError:
+    """Error for when file already exists."""
+
+
 class NoteManager:
     def __init__(self):
-        if not os.path.exists(self.NOTES_DIR):
-            self.create_notes_location()
+        if not self.NOTES_DIR.exists():
+            self.NOTES_DIR.mkdir()
 
     @property
     def NOTES_DIR(self):
-        return os.path.join(os.environ["HOME"], ".notes")
-
-    def create_notes_location(self):
-        os.mkdir(self.NOTES_DIR)
+        return Path.home() / ".notes"
 
     @property
     def available_notes(self) -> list:
-        files = os.listdir(self.NOTES_DIR)
-        files = [file for file in files if file.endswith(".txt")]
-        topics = [file.replace(".txt", "") for file in files]
+        folder = self.NOTES_DIR
+        topics = [
+            str(file).replace(str(folder) + "/", "").replace(".txt", "")
+            for file in folder.glob("*.txt")
+        ]
 
         topics.sort()
 
@@ -99,7 +104,7 @@ class NoteManager:
 
     def create_new_notes(self, topic=None):
         file = self._file_name(topic)
-        os.system(f"touch '{file}'")
+        file.touch()
 
     def open_existing_notes(self, topic):
         file = self._file_name(topic)
@@ -118,12 +123,15 @@ class NoteManager:
 
     def delete_existing_notes(self, topic):
         file = self._file_name(topic)
-        os.system(f"rm '{file}'")
+        file.unlink()
 
-    def move_existing_notes(self, topic, new_topic):
+    def rename_note(self, topic, new_topic):
         file = self._file_name(topic)
         new_file = self._file_name(new_topic)
-        os.system(f"mv '{file}' '{new_file}'")
+        if new_file.exists():
+            raise FileExistsError(f"{new_file} already exists.")
+
+        file.rename(new_file)
 
     def _file_name(self, topic):
-        return os.path.join(self.NOTES_DIR, f"{topic}.txt")
+        return self.NOTES_DIR / f"{topic}.txt"
