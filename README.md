@@ -12,7 +12,14 @@ With a successful install, the `notes` command will now be available. Type `note
   <img src="images/notes-quick-start.png" height="350"/>
 </p>
 
-The following commands are available: `create`, `delete`, `grep`, `list`, `open` `rename`, `todo`, `view`
+Create your first note and open:
+```zsh
+>>> notes create first-note
+The note first-note was created.
+
+>>> notes open first-note
+💬 Opening first-note text file in vim
+```
 
 ## File Management
 

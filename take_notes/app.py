@@ -37,6 +37,10 @@ def list():
 @app.command()
 def todo(name: str = typer.Option(None, help="Alterative name for the section")):
     """Display the TODO sections"""
+    if notes.no_notes:
+        typer.echo("There are no notes. Create with (create) command.")
+        raise typer.Exit()
+        
     topics = notes.available_notes
 
     section_name = name if name is not None else "TODO"
