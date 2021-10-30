@@ -17,13 +17,31 @@ Create your first note and open:
 >>> notes create first-note
 The note first-note was created.
 
+>>> notes list
+┏━━━━━━━━━━━━━━━━━┓
+┃ Available Notes ┃
+┡━━━━━━━━━━━━━━━━━┩
+│ first-note      │
+└─────────────────┘
+
 >>> notes open first-note
 💬 Opening first-note text file in vim
+
+>>> notes view first-note
+┏━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Topic      ┃ First 5 lines                ┃
+┡━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ first-note │ Whatever I put in first-note │
+└────────────┴──────────────────────────────┘
+What note do you want to open? [exit]:
+
 ```
+
+
 
 ## File Management
 
-All notes are stored as `.txt` files in the hidden `.notes` folder off of the home directory.
+All notes are stored as `.txt` files in the hidden `.notes` folder off of the home directory and are managed via the command line app.
 
 
 ## TODO

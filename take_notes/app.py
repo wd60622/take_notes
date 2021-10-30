@@ -40,7 +40,7 @@ def todo(name: str = typer.Option(None, help="Alterative name for the section"))
     if notes.no_notes:
         typer.echo("There are no notes. Create with (create) command.")
         raise typer.Exit()
-        
+
     topics = notes.available_notes
 
     section_name = name if name is not None else "TODO"
@@ -80,6 +80,10 @@ def open_note_prompt():
 @app.command()
 def grep(keyword: str, size: int = 0):
     """Search all existings notes for the keyword"""
+    if notes.no_notes:
+        typer.echo("There are no notes. Create with (create) command.")
+        raise typer.Exit()
+
     topics = notes.available_notes
 
     typer.clear()
@@ -124,11 +128,12 @@ def view(
     n: int = 5,
 ):
     """View the topic(s)"""
+    if notes.no_notes:
+        typer.echo("There are no notes. Create with (create) command.")
+        raise typer.Exit()
+
     if len(topics) == 0:
-        if notes.no_notes:
-            raise typer.Exit()
-        else:
-            topics = notes.available_notes
+        topics = notes.available_notes
 
     typer.clear()
     table = Table(show_lines=True)
@@ -141,10 +146,13 @@ def view(
             if lines != "":
                 table.add_row(f"[green]{topic}", lines)
 
-    console = Console()
-    console.print(table)
+    if len(table.rows) != 0:
+        console = Console()
+        console.print(table)
 
-    open_note_prompt()
+        open_note_prompt()
+    else:
+        typer.echo(f"All notes appear empty.")
 
 
 @app.command()
