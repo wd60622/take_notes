@@ -9,7 +9,7 @@ This package can be installed with pip by running `pip install .` in the project
 With a successful install, the `notes` command will now be available. Type `notes` to begin and get prompted with following information:
 
 <p align="center">
-  <img src="images/notes-quick-start.png" height="350"/>
+  <img src="images/notes-quick-start.png" width="500"/>
 </p>
 
 Create your first note:
@@ -57,7 +57,7 @@ What note do you want to open? [exit]:
 which is parsed from the file below:
 
 <p align="center">
-  <img src="images/todo-note-file.png" height="350"/>
+  <img src="images/todo-note-file.png" width="500"/>
 </p>
 
 
