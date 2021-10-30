@@ -1,6 +1,6 @@
 # Take Notes
 
-Command Line notes manager powered by the `typer` python package. Also used `rich` to display tables in the command line.
+Command Line notes manager powered by the `typer` python package. Also uses `rich` to display tables in the command line.
 
 ## Quick Start
 
@@ -70,6 +70,3 @@ All notes are stored as `.txt` files in the hidden `.notes` folder off of the ho
   <img src="images/file-manage.png" width="500"/>
 </p>
 
-
-## TODO
-- Allow do switch the editor (default is vim)
