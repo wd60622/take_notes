@@ -12,7 +12,9 @@ With a successful install, the `notes` command will now be available. Type `note
   <img src="images/notes-quick-start.png" width="500"/>
 </p>
 
-Create your first note:
+## Basic Commands
+
+Working with your first note:
 ```zsh
 >>> notes create first-note
 The note first-note was created.
