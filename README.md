@@ -12,7 +12,7 @@ With a successful install, the `notes` command will now be available. Type `note
   <img src="images/notes-quick-start.png" height="350"/>
 </p>
 
-Create your first note and open:
+Create your first note:
 ```zsh
 >>> notes create first-note
 The note first-note was created.
@@ -36,6 +36,29 @@ The note first-note was created.
 What note do you want to open? [exit]:
 
 ```
+
+## `todo` Command
+
+The `notes todo` command searches all files for the keyword `TODO`. The table returned contains all following lines either until the end of the file or two new lines are created in a row.
+
+```zsh
+>>> notes todo
+┏━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Note       ┃ TODO                                      ┃
+┡━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ first-note │ A todo section created from TODO keyword. │
+│            │                                           │
+│            │ More notes here.                          │
+└────────────┴───────────────────────────────────────────┘
+What note do you want to open? [exit]:
+
+```
+
+which is parsed from the file below:
+
+<p align="center">
+  <img src="images/todo-note-file.png" height="350"/>
+</p>
 
 
 
