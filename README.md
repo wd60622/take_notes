@@ -67,7 +67,7 @@ which is parsed from the file below:
 All notes are stored as `.txt` files in the hidden `.notes` folder off of the home directory and are managed via the command line app.
 
 <p align="center">
-  <img src="images/file-management.png" width="500"/>
+  <img src="images/file-manage.png" width="500"/>
 </p>
 
 
