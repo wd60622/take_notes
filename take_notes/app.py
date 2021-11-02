@@ -194,8 +194,12 @@ def delete(topics: List[str] = typer.Argument(..., help="The topic to delete")):
     """Delete existing topic(s)"""
     for topic in topics:
         if notes.already_exists(topic):
+            delete = typer.confirm(f"Are you sure you want to delete {topic}")
+            if not delete:
+                typer.echo(f"{topic} wasn't deleted.")
+                continue
             notes.delete_existing_notes(topic)
-            typer.echo(f"{topic} was deleted")
+            typer.echo(f"{topic} was deleted.")
 
 
 @app.command()
