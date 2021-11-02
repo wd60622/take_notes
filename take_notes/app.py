@@ -30,8 +30,13 @@ def list():
     for topic in topics:
         table.add_row(topic)
 
-    console = Console()
-    console.print(table)
+    if table.rows:
+        console = Console()
+        console.print(table)
+
+        open_note_prompt()
+    else:
+        typer.echo(f"No notes. Create with (create) command.")
 
 
 @app.command()
@@ -100,7 +105,7 @@ def grep(keyword: str, size: int = 0):
 
         table.add_row(topic, "\n".join(lines))
 
-    if len(table.rows) != 0:
+    if table.rows:
         console = Console()
         console.print(table)
 
@@ -146,7 +151,7 @@ def view(
             if lines != "":
                 table.add_row(f"[green]{topic}", lines)
 
-    if len(table.rows) != 0:
+    if table.rows:
         console = Console()
         console.print(table)
 
